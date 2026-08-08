@@ -5,3 +5,6 @@ def all_tabs(request):
 
 def home(request):
     return render(request,'testapp/home.html')
+
+def cart(request):
+    return render(request,'testapp/cart.html')
