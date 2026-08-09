@@ -12,13 +12,13 @@
                 <label for="{{ form.content.id_for_label }}">content:</label>
                 {{ form.content }}
             </div>
-        </form>
             <div>
                 <button type="submit" class="btn btn-primary">
                     Submit
                 </button>
                 <a class="btn btn-danger" href="{% url 'home' %}">cancel</a>
             </div>
+        </form>
     </div>
 
 {% endblock content %}

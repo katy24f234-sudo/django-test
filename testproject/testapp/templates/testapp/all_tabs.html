@@ -1,3 +1,15 @@
-{% extends 'layout.html' %}
-{% block title %}all_tabs{% endblock title %} 
-{% block content %}all_tabs working{% endblock content %}
+{% extends 'shopbase.html' %}
+{% block title %}posts{% endblock title %} 
+{% block content %}
+<div class="w-50 mx-auto">
+    <h1 class="text-center">posts list</h1>
+</div>
+<div class="card w-50 mx-auto">
+    {% for Post in Posts %}
+    <div class="ms-2">
+        <a href="{% url 'post_details' Post.id %}">{{ Post.title }} -- {{ Post.created_at }}</a>
+    <hr>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
