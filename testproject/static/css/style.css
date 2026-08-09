@@ -8,3 +8,15 @@ body{
     font-size: 26px;
     font-weight: bold;
 }
+input{
+    padding: 5px;
+    width:90%;
+    margin: 5px;
+    border-radius: 5px;
+}
+textarea{
+    padding: 5px;
+    width:90%;
+    margin: 5px;
+    border-radius: 5px;    
+}

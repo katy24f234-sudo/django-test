@@ -1,0 +1,24 @@
+{% extends "shopbase.html" %}
+{% block title %}create post{% endblock title %}
+{% block content %}
+    <div class="w-50 mx-auto">
+        <form action="" method="Post">
+            {% csrf_token %}
+            <div>
+                <label for="{{ form.title.id_for_label }}">title:</label>
+               {{ form.title }} 
+            </div>
+            <div>
+                <label for="{{ form.content.id_for_label }}">content:</label>
+                {{ form.content }}
+            </div>
+        </form>
+            <div>
+                <button type="submit" class="btn btn-primary">
+                    Submit
+                </button>
+                <a class="btn btn-danger" href="{% url 'home' %}">cancel</a>
+            </div>
+    </div>
+
+{% endblock content %}
