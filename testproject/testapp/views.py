@@ -41,3 +41,16 @@ def post_details(request,id):
         'post':post
     }
     return render(request,'testapp/post_details.html',data)
+def post_edit(request,id):
+    post=Post.objects.get(pk=id)
+    if request.method=='POST':
+        form=PostCreateForm(request.POST)
+        if form.is_valid():
+            post.title=form.data.get('title')
+            post.content=form.data.get('content')
+            post.save()
+            return redirect('posts')
+    data = {
+        'post':post
+    }
+    return render(request,'testapp/post_edit.html',data)

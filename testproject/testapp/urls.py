@@ -6,5 +6,6 @@ urlpatterns = [
     path('',views.home,name='home'),
     path('cart/',views.cart,name='cart'),
     path('creatpost/',views.Post_create_form,name='creatpost'),
-    path('post_details/<str:id>',views.post_details,name='post_details')
+    path('post_details/<str:id>',views.post_details,name='post_details'),
+    path('post_edit/<str:id>',views.post_edit,name='post_edit')
 ]

@@ -1,0 +1,24 @@
+{% extends "shopbase.html" %}
+{% block title %}edit post{% endblock title %}
+{% block content %}
+    <div class="w-50 mx-auto">
+        <form action="" method="Post">
+            {% csrf_token %}
+            <div>
+                <label for="title">title:</label>
+               <input type="text" name="title" id="title" value="{{post.title}}">
+            </div>
+            <div>
+                <label for="content">content:</label>
+                <textarea name="content" id="content" >{{post.content}}</textarea>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">
+                    Submit
+                </button>
+                <a class="btn btn-danger" href="{% url 'home' %}">cancel</a>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}
