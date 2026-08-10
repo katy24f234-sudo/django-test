@@ -54,3 +54,12 @@ def post_edit(request,id):
         'post':post
     }
     return render(request,'testapp/post_edit.html',data)
+def post_delete(request, id):
+    post=Post.objects.get(pk=id)
+    if request.method=='POST':
+        post.delete()
+        return redirect('posts')
+    data = {
+            'post':post
+        }
+    return render(request,'testapp/post_delete.html',data)

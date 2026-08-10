@@ -1,0 +1,21 @@
+{% extends "shopbase.html" %}
+{% block title %}delete post{% endblock title %}
+{% block content %}
+<div class="card shadow w-50 mx-auto" style="max-width: 500px;">
+    <div class="card-header">
+        <h5 class="mb-0 text-center">are you sure you want to delete this post?</h5>
+    </div>
+
+    <div class="card-body text-center">
+        {{post.title}}
+    </div>
+
+    <div class="card-footer d-flex justify-content-end gap-2">
+        <a href="{% url 'posts' %}" class="btn btn-secondary">Close</a>
+        <form action="" method="POST">
+            {% csrf_token %}
+        <button type="submit" class="btn btn-danger">delete</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
