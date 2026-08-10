@@ -1,12 +1,13 @@
 from django.shortcuts import render , redirect
 from .forms import PostCreateForm
 from .models import Post
+from django.db.models import Q
 
 def all_tabs(request):
     q=request.GET.get('q')
     Posts =Post.objects.all()
     if q:
-        posts_filtered=Post.objects.filter(title__icontains=q)
+        posts_filtered=Post.objects.filter(Q(title__icontains=q) | Q(content__icontains=q))
     else :
         posts_filtered=Posts  
     data = {
