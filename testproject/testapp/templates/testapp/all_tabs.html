@@ -2,14 +2,23 @@
 {% block title %}posts{% endblock title %} 
 {% block content %}
 <div class="w-50 mx-auto">
+    <form action={% url "posts" %} method="GET">
+        <div class="d-flex">
+        <input type="text" name="q" id="q">
+        <button type="submit" class="btn btn-primary">search</button>
+        </div>
+    </form>
     <h1 class="text-center">posts list</h1>
 </div>
 <div class="card w-50 mx-auto">
-    {% for Post in Posts %}
+    {% for Post in post_f %}
     <div class="ms-2">
         <a href="{% url 'post_details' Post.id %}">{{ Post.title }} -- {{ Post.created_at }}</a>
     <hr>
     </div>
     {% endfor %}
 </div>
+    <div class="w-50 mx-auto">
+        <a href="{% url "posts" %}">show all</a>
+    </div>
 {% endblock content %}

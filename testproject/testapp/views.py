@@ -3,9 +3,16 @@ from .forms import PostCreateForm
 from .models import Post
 
 def all_tabs(request):
+    q=request.GET.get('q')
     Posts =Post.objects.all()
+    if q:
+        posts_filtered=Post.objects.filter(title__icontains=q)
+    else :
+        posts_filtered=Posts  
     data = {
-        'Posts':Posts
+        'Posts':Posts,
+        'post_f':posts_filtered,
+        'q':q
     }
     return render(request,'testapp/all_tabs.html',data)
 
