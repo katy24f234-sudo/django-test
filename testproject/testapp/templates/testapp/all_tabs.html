@@ -14,6 +14,7 @@
     {% for Post in post_f %}
     <div class="ms-2">
         <a href="{% url 'post_details' Post.id %}">{{ Post.title }} -- {{ Post.created_at | timesince }}</a>
+        <a href="{% url 'post_edit' Post.id %}" class="btn btn-dark">edit</a>
     <hr>
     </div>
     {% endfor %}
