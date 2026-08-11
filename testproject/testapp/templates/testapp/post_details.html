@@ -2,6 +2,11 @@
 {% block title %}post {{post.id}}{% endblock title %} 
 {% block content %}
 <div class="w-50 mx-auto">
+    <div class="d-flex justify-content-center align-items-center">
+        <img class="" src="{{post.image.url}}" alt="" width="200">
+    </div>
+</div>
+<div class="w-50 mx-auto">
     <h1 class="text-center">{{post.title}}</h1>
 </div>
 <div class="card w-50 mx-auto">

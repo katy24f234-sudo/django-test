@@ -2,7 +2,7 @@
 {% block title %}create post{% endblock title %}
 {% block content %}
     <div class="w-50 mx-auto">
-        <form action="" method="Post">
+        <form action="" method="Post" enctype="multipart/form-data">
             {% csrf_token %}
             <div>
                 <label for="{{ form.title.id_for_label }}">title:</label>
@@ -11,6 +11,10 @@
             <div>
                 <label for="{{ form.content.id_for_label }}">content:</label>
                 {{ form.content }}
+            </div>
+            <div>
+                <label for="{{ form.image.id_for_label }}">image:</label>
+                {{ form.image }}
             </div>
             <div>
                 <button type="submit" class="btn btn-primary">

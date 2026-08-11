@@ -25,7 +25,7 @@ def cart(request):
 
 def Post_create_form(request):
     if(request.method == 'POST'):
-        form = PostCreateForm(request.POST)
+        form = PostCreateForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             return redirect('posts')
