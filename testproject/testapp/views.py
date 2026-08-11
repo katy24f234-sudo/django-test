@@ -1,7 +1,9 @@
 from django.shortcuts import render , redirect
 from .forms import PostCreateForm
-from .models import Post
+from .models import Post,User
 from django.db.models import Q
+from django.contrib import messages
+from django.contrib.auth import authenticate,login,logout
 
 def all_tabs(request):
     q=request.GET.get('q')
@@ -63,3 +65,20 @@ def post_delete(request, id):
             'post':post
         }
     return render(request,'testapp/post_delete.html',data)
+def loginpage(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        # try:
+        #     user = User.objects.get(username=username)
+        # except:
+        #     messages.add_message(request,messages.ERROR,"username not found")
+        user = authenticate(request,username=username,password=password)
+        if user is not None :
+            login(request , user)
+            return redirect('home')
+        messages.add_message(request,messages.ERROR,"wrong username or password")
+    return render(request,'testapp/login_register.html')
+def logoutpage(request):
+    logout(request)
+    return redirect('home')

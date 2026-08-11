@@ -1,0 +1,64 @@
+{% extends "shopbase.html" %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center align-items-center min-vh-100">
+        <div class="col-md-5 col-lg-5">
+
+            <div class="card shadow-sm">
+                <div class="card-body p-6">
+
+                    <h2 class="text-center mb-4">Login</h2>
+
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label">
+                                Username
+                            </label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="username"
+                                name="username"
+                                required
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">
+                                Password
+                            </label>
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="password"
+                                name="password"
+                                required
+                            >
+                        </div>
+
+                        <button type="submit" class="btn btn-dark w-100">
+                            Login
+                        </button>
+                    {% if messages %}
+                        {% for message in messages %}
+                        <p class="text-center" style="font-size: 19px;">
+                            {{ message }}
+                        </p>
+                        {% endfor %}
+                    {% endif %}
+                    </form>
+
+                    {% comment %} <p class="text-center mt-3 mb-0">
+                        Don't have an account?
+                        <a href="{% url 'register' %}">Register</a>
+                    </p> {% endcomment %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
