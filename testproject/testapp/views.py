@@ -4,6 +4,7 @@ from .models import Post,User
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
 
 def all_tabs(request):
     q=request.GET.get('q')
@@ -25,6 +26,7 @@ def home(request):
 def cart(request):
     return render(request,'testapp/cart.html')
 
+@login_required(login_url='loginpage')
 def Post_create_form(request):
     if(request.method == 'POST'):
         form = PostCreateForm(request.POST,request.FILES)
@@ -43,6 +45,8 @@ def post_details(request,id):
         'post':post
     }
     return render(request,'testapp/post_details.html',data)
+
+@login_required(login_url='loginpage')
 def post_edit(request,id):
     post=Post.objects.get(pk=id)
     if request.method=='POST':
@@ -56,6 +60,8 @@ def post_edit(request,id):
         'post':post
     }
     return render(request,'testapp/post_edit.html',data)
+
+@login_required(login_url='loginpage')
 def post_delete(request, id):
     post=Post.objects.get(pk=id)
     if request.method=='POST':
@@ -65,6 +71,7 @@ def post_delete(request, id):
             'post':post
         }
     return render(request,'testapp/post_delete.html',data)
+
 def loginpage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -79,6 +86,7 @@ def loginpage(request):
             return redirect('home')
         messages.add_message(request,messages.ERROR,"wrong username or password")
     return render(request,'testapp/login_register.html')
+
 def logoutpage(request):
     logout(request)
     return redirect('home')
