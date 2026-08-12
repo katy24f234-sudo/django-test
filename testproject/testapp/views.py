@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 
 def all_tabs(request):
     q=request.GET.get('q')
@@ -73,6 +74,8 @@ def post_delete(request, id):
     return render(request,'testapp/post_delete.html',data)
 
 def loginpage(request):
+    if request.user.is_authenticated :
+        return redirect('home')
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -90,3 +93,6 @@ def loginpage(request):
 def logoutpage(request):
     logout(request)
     return redirect('home')
+
+def registerpage(request):
+    return render(request,'testapp/login_register.html')
