@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from phonenumber_field.modelfields import PhoneNumberField
 
 class Post(models.Model):
     title=models.CharField(max_length=200)
@@ -9,13 +10,9 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
-# class CustomProfile(models.Model):
-#     user=models.OneToOneField(User, on_delete=models.CASCADE,related_name='profile')
-#     firstname=models.CharField(max_length=50)
-#     lastname=models.CharField(max_length=50)
-#     address=models.CharField(max_length=220)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-
-#     def __str__(self):
-#         return f"{self.firstname} {self.lastname}"
+class CustomProfile(models.Model):
+    user=models.OneToOneField(User, on_delete=models.CASCADE,related_name='profile')
+    address=models.CharField(max_length=220)
+    phone_number=PhoneNumberField(blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

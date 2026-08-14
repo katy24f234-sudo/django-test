@@ -1,5 +1,5 @@
 from django.shortcuts import render , redirect
-from .forms import PostCreateForm
+from .forms import PostCreateForm, CustomProfileform ,CustomUsercreationForm
 from .models import Post,User
 from django.db.models import Q
 from django.contrib import messages
@@ -88,11 +88,55 @@ def loginpage(request):
             login(request , user)
             return redirect('home')
         messages.add_message(request,messages.ERROR,"wrong username or password")
-    return render(request,'testapp/login_register.html')
+    if request.method=='POST':
+        profile_form=CustomProfileform(request.POST)
+        user_form=CustomUsercreationForm(request.POST)
+        if profile_form.is_valid() and user_form.is_valid():
+            user=user_form.save(commit=False)
+            email=user_form.cleaned_data['email']
+            user.email=email
+            user.username=email
+            user.save()
+            profile=profile_form.save(commit=False)
+            profile.user=user
+            profile.save()
+            login(request , user)
+            return redirect('home')
+    else:    
+        profile_form=CustomProfileform()
+        user_form=CustomUsercreationForm()
+    page='login'
+    data={
+    'page':page,   
+    'profile_form':profile_form,
+    'user_form':user_form
+    }
+    return render(request,'testapp/login_register.html',data)
 
 def logoutpage(request):
     logout(request)
     return redirect('home')
 
 def registerpage(request):
-    return render(request,'testapp/login_register.html')
+    if request.method=='POST':
+        profile_form=CustomProfileform(request.POST)
+        user_form=CustomUsercreationForm(request.POST)
+        if profile_form.is_valid() and user_form.is_valid():
+            user=user_form.save(commit=False)
+            email=user_form.cleaned_data['email']
+            user.email=email
+            user.username=email
+            user.save()
+            profile=profile_form.save(commit=False)
+            profile.user=user
+            profile.save()
+            login(request , user)
+            return redirect('home')
+    else:
+        profile_form=CustomProfileform()
+        user_form=CustomUsercreationForm()
+    data={
+        'profile_form':profile_form,
+        'user_form':user_form
+    }
+    return render(request,'testapp/login_register.html',data)
