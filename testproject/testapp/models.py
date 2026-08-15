@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from phonenumber_field.modelfields import PhoneNumberField
+from phonenumber_field.modelfields import PhoneNumberField # pyright: ignore[reportMissingImports]
 
 class Post(models.Model):
     title=models.CharField(max_length=200)
