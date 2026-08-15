@@ -1,6 +1,6 @@
 from django.shortcuts import render , redirect
 from .forms import PostCreateForm, CustomProfileform ,CustomUsercreationForm
-from .models import Post,User
+from .models import Post,User,Product
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
@@ -22,7 +22,8 @@ def all_tabs(request):
     return render(request,'testapp/all_tabs.html',data)
 
 def home(request):
-    return render(request,'testapp/home.html')
+    products=Product.objects.all()
+    return render(request,'testapp/home.html',{'products':products})
 
 def cart(request):
     return render(request,'testapp/cart.html')
