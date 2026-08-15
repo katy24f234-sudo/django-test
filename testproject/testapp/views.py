@@ -88,23 +88,8 @@ def loginpage(request):
             login(request , user)
             return redirect('home')
         messages.add_message(request,messages.ERROR,"wrong username or password")
-    if request.method=='POST':
-        profile_form=CustomProfileform(request.POST)
-        user_form=CustomUsercreationForm(request.POST)
-        if profile_form.is_valid() and user_form.is_valid():
-            user=user_form.save(commit=False)
-            email=user_form.cleaned_data['email']
-            user.email=email
-            user.username=email
-            user.save()
-            profile=profile_form.save(commit=False)
-            profile.user=user
-            profile.save()
-            login(request , user)
-            return redirect('home')
-    else:    
-        profile_form=CustomProfileform()
-        user_form=CustomUsercreationForm()
+    profile_form=CustomProfileform()
+    user_form=CustomUsercreationForm()
     page='login'
     data={
     'page':page,   
