@@ -126,3 +126,10 @@ def registerpage(request):
         'user_form':user_form
     }
     return render(request,'testapp/login_register.html',data)
+
+def product_details(request,id):
+    product=Product.objects.get(pk=id)
+    data= {
+        'product':product
+    }
+    return render(request,'testapp/product_details.html',data)

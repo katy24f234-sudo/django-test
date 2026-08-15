@@ -11,5 +11,6 @@ urlpatterns = [
     path('post_delete/<str:id>',views.post_delete,name='post_delete'),
     path('login/',views.loginpage,name='loginpage'),
     path('register/',views.registerpage,name='registerpage'),
-    path('logout/',views.logoutpage,name='logoutpage')
+    path('logout/',views.logoutpage,name='logoutpage'),
+    path('product_details/<str:id>',views.product_details,name='product_details')
 ]
