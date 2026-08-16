@@ -29,3 +29,22 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True)  
     def __str__(self):
         return self.name  
+
+class Cart(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='cart')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True) 
+    @property
+    def item_count(self):
+        return sum(item.quantity for item in self.items.all())
+    @property
+    def total(self):
+        return sum(item.total for item in self.items.total.all())
+
+class Cartitem(models.Model):
+    product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name='cart_items')
+    cart=models.ForeignKey(Cart,on_delete=models.CASCADE,related_name='items')
+    quantity=models.PositiveIntegerField(default=1) 
+    @property
+    def total(self):
+        return self.product.price * self.quantity
