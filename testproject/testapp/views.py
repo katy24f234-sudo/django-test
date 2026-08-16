@@ -25,8 +25,11 @@ def home(request):
     products=Product.objects.all()
     return render(request,'testapp/home.html',{'products':products})
 
+@login_required(login_url='loginpage')
 def cart(request):
-    return render(request,'testapp/cart.html')
+    cart=Cart.objects.get(user=request.user)
+    cartitems=cart.items.all()
+    return render(request,'testapp/cart.html',{'cartitems':cartitems,'cart':cart})
 
 @login_required(login_url='loginpage')
 def Post_create_form(request):

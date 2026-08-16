@@ -39,7 +39,7 @@ class Cart(models.Model):
         return sum(item.quantity for item in self.items.all())
     @property
     def total(self):
-        return sum(item.total for item in self.items.total.all())
+        return sum(item.total for item in self.items.all())
     def __str__(self):
         return f"{self.user.username} cart"
 

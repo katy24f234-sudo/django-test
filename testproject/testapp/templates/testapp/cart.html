@@ -12,8 +12,10 @@ Cart
 
     <div class="row">
 
-        <!-- Cart items -->
+        <!-- LEFT: Cart Items -->
         <div class="col-lg-8">
+
+            {% for item in cartitems %}
 
             <div class="card mb-3">
 
@@ -22,24 +24,16 @@ Cart
                     <div class="row align-items-center">
 
                         <div class="col-md-3">
-                            <img src="https://dummyimage.com/200x200/dee2e6/6c757d.jpg"
+                            <img src="{{ item.product.image.url }}"
                                  class="img-fluid rounded"
                                  alt="Product">
                         </div>
 
-
                         <div class="col-md-4">
-
                             <h5 class="card-title">
-                                Product Name
+                                {{ item.product.name }}
                             </h5>
-
-                            <p class="text-muted">
-                                Short description
-                            </p>
-
                         </div>
-
 
                         <div class="col-md-2">
 
@@ -49,28 +43,34 @@ Cart
 
                             <input type="number"
                                    class="form-control"
-                                   value="1"
+                                   value="{{ item.quantity }}"
                                    min="1">
 
                         </div>
 
-
-                        <div class="col-md-2">
-
+                        <div class="col ms-4">
                             <h5>
-                                $99
+                                {{ item.product.price }}
                             </h5>
-
                         </div>
 
-
                         <div class="col-md-1">
-
                             <button class="btn btn-danger btn-sm">
                                 ×
                             </button>
-
                         </div>
+
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+
+                        <span>
+                            Subtotal
+                        </span>
+
+                        <span>
+                            ${{ item.total }}
+                        </span>
 
                     </div>
 
@@ -78,14 +78,18 @@ Cart
 
             </div>
 
+            {% empty %}
 
-            <!-- Duplicate this card for more products -->
+            <div class="alert alert-info">
+                Your cart is empty.
+            </div>
 
+            {% endfor %}
 
         </div>
 
 
-        <!-- Summary -->
+        <!-- RIGHT: Summary -->
         <div class="col-lg-4">
 
             <div class="card">
@@ -96,22 +100,7 @@ Cart
                         Cart Summary
                     </h4>
 
-
                     <hr>
-
-
-                    <div class="d-flex justify-content-between">
-
-                        <span>
-                            Subtotal
-                        </span>
-
-                        <span>
-                            $99
-                        </span>
-
-                    </div>
-
 
                     <div class="d-flex justify-content-between">
 
@@ -125,9 +114,7 @@ Cart
 
                     </div>
 
-
                     <hr>
-
 
                     <div class="d-flex justify-content-between">
 
@@ -136,28 +123,25 @@ Cart
                         </h5>
 
                         <h5>
-                            $99
+                            ${{ cart.total }}
                         </h5>
 
                     </div>
-
 
                     <button class="btn btn-dark w-100 mt-3">
                         Checkout
                     </button>
 
-
-                    <a href="#" class="btn btn-outline-secondary w-100 mt-2">
+                    <a href="{% url 'home' %}"
+                       class="btn btn-outline-secondary w-100 mt-2">
                         Continue Shopping
                     </a>
-
 
                 </div>
 
             </div>
 
         </div>
-
 
     </div>
 
