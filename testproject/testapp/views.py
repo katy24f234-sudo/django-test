@@ -1,6 +1,6 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect,get_object_or_404
 from .forms import PostCreateForm, CustomProfileform ,CustomUsercreationForm
-from .models import Post,User,Product
+from .models import Post,User,Product,Cart,Cartitem
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
@@ -133,3 +133,15 @@ def product_details(request,id):
         'product':product
     }
     return render(request,'testapp/product_details.html',data)
+
+@login_required(login_url='loginpage')
+def add_to_cart(request):
+    product_id=request.POST.get("product_id")
+    page=request.POST.get("page")
+    product=get_object_or_404(Product,id=product_id)
+    cart,_=Cart.objects.get_or_create(user=request.user)
+    cartitem,created=Cartitem.objects.get_or_create(cart=cart,product=product)
+    if not created:
+        cartitem.quantity+=1
+        cartitem.save()
+    return redirect(page)
