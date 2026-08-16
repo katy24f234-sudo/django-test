@@ -148,3 +148,8 @@ def add_to_cart(request):
         cartitem.quantity+=1
         cartitem.save()
     return redirect(page)
+
+def delete_cart_item(request,id):
+    cartitem=Cartitem.objects.get(pk=id)
+    cartitem.delete()
+    return redirect('cart')

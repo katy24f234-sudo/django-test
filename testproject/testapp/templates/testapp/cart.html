@@ -53,13 +53,14 @@ Cart
                                 {{ item.product.price }}
                             </h5>
                         </div>
-
                         <div class="col-md-1">
-                            <button class="btn btn-danger btn-sm">
+                            <form action="{% url "delete_cart_item" item.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">
                                 ×
                             </button>
+                            </form>
                         </div>
-
                     </div>
 
                     <div class="d-flex justify-content-between">
