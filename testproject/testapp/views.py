@@ -1,6 +1,6 @@
 from django.shortcuts import render , redirect,get_object_or_404
 from .forms import PostCreateForm, CustomProfileform ,CustomUsercreationForm
-from .models import Post,User,Product,Cart,Cartitem
+from .models import Post,User,Product,Cart,Cartitem,CustomProfile
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
@@ -163,3 +163,10 @@ def update_cart(request):
                 item.quantity=int(quantity)    
                 item.save()
         return redirect('cart')
+    
+@login_required(login_url='loginpage')
+def checkout(request):
+    profile=get_object_or_404(CustomProfile,user=request.user)
+    cart=get_object_or_404(Cart,user=request.user)
+    cartitems=cart.items.all()
+    return render(request,'testapp/checkout.html',{'profile':profile,'cart':cart,'cartitems':cartitems})
