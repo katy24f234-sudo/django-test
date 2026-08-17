@@ -153,3 +153,13 @@ def delete_cart_item(request,id):
     cartitem=get_object_or_404(Cartitem,pk=id,cart__user=request.user)
     cartitem.delete()
     return redirect('cart')
+
+def update_cart(request):
+    cart,_=Cart.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        for item in cart.items.all():
+            quantity=request.POST.get(f'number{item.id}')
+            if int(quantity) >= 1:
+                item.quantity=int(quantity)    
+                item.save()
+        return redirect('cart')

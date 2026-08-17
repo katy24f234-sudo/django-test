@@ -7,9 +7,19 @@ Cart
 {% block content %}
 
 <div class="container py-5">
+    <form action="{% url "update_cart" %}"  method='POST'>
+        {% csrf_token %}
+    <div class="row align-items-center mb-4">
+        <div class="col-lg-8">
+            <h1 class="mb-0">Shopping Cart</h1>
+        </div>
 
-    <h1 class="mb-4">Shopping Cart</h1>
-
+        <div class="col-lg-4 text-end">
+            <button type="submit" class="btn btn-dark">
+                Apply changes
+            </button>
+        </div>
+    </div>
     <div class="row">
 
         <!-- LEFT: Cart Items -->
@@ -44,8 +54,9 @@ Cart
                             <input type="number"
                                    class="form-control"
                                    value="{{ item.quantity }}"
-                                   min="1">
-
+                                   min="1"
+                                   name="number{{item.id}}"
+                                   >
                         </div>
 
                         <div class="col ms-4">
@@ -54,12 +65,9 @@ Cart
                             </h5>
                         </div>
                         <div class="col-md-1">
-                            <form action="{% url "delete_cart_item" item.id %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger btn-sm">
+                            <button formaction="{% url "delete_cart_item" item.id %}" type="submit" class="btn btn-danger btn-sm">
                                 ×
                             </button>
-                            </form>
                         </div>
                     </div>
 
@@ -88,7 +96,7 @@ Cart
             {% endfor %}
 
         </div>
-
+        </form>
 
         <!-- RIGHT: Summary -->
         <div class="col-lg-4">
@@ -128,11 +136,11 @@ Cart
                         </h5>
 
                     </div>
-
+                    {% if cart.item_count != 0 %}
                     <button class="btn btn-dark w-100 mt-3">
                         Checkout
                     </button>
-
+                    {% endif %}
                     <a href="{% url 'home' %}"
                        class="btn btn-outline-secondary w-100 mt-2">
                         Continue Shopping
