@@ -150,6 +150,6 @@ def add_to_cart(request):
     return redirect(page)
 
 def delete_cart_item(request,id):
-    cartitem=Cartitem.objects.get(pk=id)
+    cartitem=get_object_or_404(Cartitem,pk=id,cart__user=request.user)
     cartitem.delete()
     return redirect('cart')
