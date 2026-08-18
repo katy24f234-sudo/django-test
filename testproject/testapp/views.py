@@ -1,6 +1,6 @@
 from django.shortcuts import render , redirect,get_object_or_404
-from .forms import PostCreateForm, CustomProfileform ,CustomUsercreationForm , CustomUserEditForm
-from .models import Post,User,Product,Cart,Cartitem,CustomProfile
+from .forms import PostCreateForm, CustomProfileform ,CustomUsercreationForm , CustomUserEditForm ,OrderReceipt
+from .models import Post,User,Product,Cart,Cartitem,CustomProfile,Order,Orderitem
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
@@ -185,3 +185,30 @@ def edit_profile(request):
     profile_form=CustomProfileform(instance=profile)
     user_form=CustomUserEditForm(instance=user)
     return render(request,'testapp/edit_profile.html',{'profile_form':profile_form,'user_form':user_form})
+
+@login_required(login_url='loginpage')
+def cart_to_order(request):
+    cart=get_object_or_404(Cart,user=request.user)
+    if cart.item_count !=0:
+        cartitems=cart.items.all()
+        order=Order.objects.create(user=request.user,total=cart.total)
+        for item in cartitems:
+            orderitem=Orderitem.objects.create(order=order,name=item.product.name,price=item.product.price,quantity=item.quantity,total=item.total)
+        cart.delete()
+        form=OrderReceipt(instance=order)
+        orderitems=order.items.all()
+        return render(request,'testapp/order_preview.html',{'order':order,'form':form,'orderitems':orderitems})
+    else:
+        return redirect('home')
+
+def orders_list(request):
+    orders=Order.objects.filter(user=request.user)
+    return render(request,'testapp/orders.html',{'orders':orders})
+
+def add_receipt_image(request,id):
+    order=get_object_or_404(Order,pk=id,user=request.user)
+    if(request.method == 'POST'):
+        form = OrderReceipt(request.POST,request.FILES,instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('orders')

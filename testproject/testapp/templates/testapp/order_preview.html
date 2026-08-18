@@ -1,0 +1,136 @@
+{% extends "shopbase.html" %}
+
+{% block title %}
+checkout
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row align-items-center mb-4">
+        <div class="col-lg-5">
+            <div class="card mb-3">
+                <div class="card-body">
+
+                    <h4 class="card-title">
+                        Order Summary
+                    </h4>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between">
+
+                        <span>
+                            Shipping
+                        </span>
+
+                        <span>
+                            Free
+                        </span>
+
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+
+                        <span>
+                            Status
+                        </span>
+
+                        <span>
+                            {{order.status}}
+                        </span>
+
+                    </div>                    
+                    <hr>
+                    {% for item in orderitems %}
+                    
+                    <div class="d-flex justify-content-between">
+
+                        <span>
+                            {{item.name}} ({{item.quantity}})
+                        </span>
+
+                        <span>
+                            {{item.total}}
+                        </span>
+
+                    </div>
+                    <hr>
+                    {% endfor %}
+                    <div class="d-flex justify-content-between">
+
+                        <h5>
+                            Total
+                        </h5>
+
+                        <h5>
+                            ${{ order.total }}
+                        </h5>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div class="card">
+    <div class="card-body">
+
+        <h4 class="card-title mb-3">
+            Payment Details
+        </h4>
+
+        <hr>
+        <form action="{% url "add_receipt_image" order.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- Network -->
+        <div class="mb-4">
+            <label class="form-label fw-semibold">
+                Network
+            </label>
+
+            <div>
+                <span class="badge text-bg-dark px-3 py-2">
+                    USDT - TRC20
+                </span>
+            </div>
+        </div>
+
+        <!-- Wallet Address -->
+        <div class="mb-4">
+                <span>USDT Wallet Address</span>
+                <hr>
+                <span>0x2DbF8Cb6A4dAd6a6BB8C51f81C2A96E08de43Ce0</span>
+                <hr>
+            <div class="form-text">
+                Send exactly
+                <strong>${{ order.total }}</strong>
+                USDT to this address.
+            </div>
+        </div>
+
+        <!-- Receipt -->
+        <div class="mb-4">
+            <label for="receipt" class="form-label fw-semibold">
+                Payment Receipt
+            </label>
+
+            <input
+                type="file"
+                class="form-control"
+                id="receipt"
+                name="receipt_image"
+                accept="image/*"
+                required
+            >
+
+            <div class="form-text">
+                Upload a screenshot of your completed USDT transaction.
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-dark w-100">
+            Submit Payment
+        </button>
+    </div>
+    </form>
+</div>
+{% endblock %}

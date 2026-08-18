@@ -1,5 +1,5 @@
 from django import forms 
-from .models import Post , CustomProfile,User
+from .models import Post , CustomProfile,User,Order
 from django.contrib.auth.forms import UserCreationForm
 
 class PostCreateForm(forms.ModelForm):
@@ -30,3 +30,8 @@ class CustomUserEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name']
+
+class OrderReceipt(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['receipt_image']
