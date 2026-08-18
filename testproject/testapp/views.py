@@ -201,6 +201,7 @@ def cart_to_order(request):
     else:
         return redirect('home')
 
+@login_required(login_url='loginpage')
 def orders_list(request):
     orders=Order.objects.filter(user=request.user)
     return render(request,'testapp/orders.html',{'orders':orders})
