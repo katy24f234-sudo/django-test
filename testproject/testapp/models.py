@@ -52,3 +52,25 @@ class Cartitem(models.Model):
         return self.product.price * self.quantity
     def __str__(self):
         return self.product.name
+
+class Order(models.Model):
+    user=models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='orders'
+    )
+    total=models.DecimalField(max_digits=10, decimal_places=2)
+    created_at=models.DateTimeField(auto_now_add=True)
+    upadated_at=models.DateTimeField(auto_now=True) 
+    receipt_image = models.ImageField(upload_to='images/receipts/',default='default.jpg')
+    def __str__(self):
+        return f"{self.user.username} order"
+
+class Orderitem(models.Model):
+    order=models.ForeignKey(Order,on_delete=models.CASCADE,related_name='items')
+    name=models.CharField(max_length=50)
+    quantity=models.PositiveIntegerField() 
+    price=models.DecimalField(max_digits=10, decimal_places=2)
+    total=models.DecimalField(max_digits=10, decimal_places=2)
+    def __str__(self):
+        return self.name
