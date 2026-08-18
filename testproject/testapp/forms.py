@@ -25,3 +25,8 @@ class CustomUsercreationForm(UserCreationForm):
                 'this email is already registered'
             )
         return email
+
+class CustomUserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name']

@@ -1,5 +1,5 @@
 from django.shortcuts import render , redirect,get_object_or_404
-from .forms import PostCreateForm, CustomProfileform ,CustomUsercreationForm
+from .forms import PostCreateForm, CustomProfileform ,CustomUsercreationForm , CustomUserEditForm
 from .models import Post,User,Product,Cart,Cartitem,CustomProfile
 from django.db.models import Q
 from django.contrib import messages
@@ -170,3 +170,18 @@ def checkout(request):
     cart=get_object_or_404(Cart,user=request.user)
     cartitems=cart.items.all()
     return render(request,'testapp/checkout.html',{'profile':profile,'cart':cart,'cartitems':cartitems})
+
+@login_required(login_url='loginpage')
+def edit_profile(request):
+    user=request.user
+    profile=user.profile
+    if request.method == "POST":
+        profile_form=CustomProfileform(request.POST , instance=profile)
+        user_form=CustomUserEditForm(request.POST , instance=user)
+        if profile_form.is_valid() and user_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('checkout')
+    profile_form=CustomProfileform(instance=profile)
+    user_form=CustomUserEditForm(instance=user)
+    return render(request,'testapp/edit_profile.html',{'profile_form':profile_form,'user_form':user_form})
