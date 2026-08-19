@@ -1,0 +1,228 @@
+{% extends "shopbase.html" %}
+
+{% block title %}
+Cart
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="fw-bold">Order #{{ order.id }}</h1>
+        </div>
+    </div>
+
+
+    <div class="row g-4">
+
+        <!-- LEFT: Order Items -->
+        <div class="col-lg-5">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+
+                    <h5 class="fw-semibold mb-4">
+                        Order Summary
+                    </h5>
+
+
+                    {% for item in orderitems %}
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+
+                        <div>
+                            <h6 class="mb-1">
+                                {{ item.name }}
+                            </h6>
+
+                            <small class="text-muted">
+                                Quantity: {{ item.quantity }}
+                            </small>
+                        </div>
+
+
+                        <div class="text-end">
+                            <div>
+                                ${{ item.price }}
+                            </div>
+
+                            <small class="text-muted">
+                                ${{ item.total }}
+                            </small>
+                        </div>
+
+                    </div>
+
+
+                    {% if not forloop.last %}
+                    <hr>
+                    {% endif %}
+
+
+                    {% endfor %}
+
+
+                    <hr>
+
+
+                    <div class="d-flex justify-content-between fw-bold fs-5">
+
+                        <span>
+                            Total
+                        </span>
+
+                        <span>
+                            ${{ order.total }}
+                        </span>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!-- RIGHT: Payment -->
+        <div class="col-lg-7">
+
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body">
+
+                    {% if order.status == "PENDING" %}
+                    <h5 class="fw-semibold mb-4">
+                        Complete Payment
+                    </h5>
+
+
+                    <!-- Receipt Image -->
+                    {% if order.receipt_image %}
+                    <img 
+                        src="{{ order.receipt_image.url }}" 
+                        class="img-fluid rounded mb-4"
+                        alt="Payment Receipt"
+                    >
+                    {% endif %}
+
+
+
+                    <!-- Wallet Address -->
+                    <div class="mb-4">
+
+                        <label class="fw-semibold">
+                            USDT Wallet Address
+                        </label>
+
+                        <hr>
+                        <div >
+                            <span>0x2DbF8Cb6A4dAd6a6BB8C51f81C2A96E08de43Ce0</span>
+                        </div>
+                        <hr>
+
+                        <div class="form-text mt-2">
+
+                            Send exactly 
+                            <strong>${{ order.total }}</strong>
+                            USDT to this address.
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Upload Receipt -->
+                    <form method="POST" action="{% url "add_receipt_image" order.id %}" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+
+                        <div class="mb-4">
+
+                            <label 
+                                for="receipt"
+                                class="form-label fw-semibold"
+                            >
+                                Payment Receipt
+                            </label>
+
+
+                            <input
+                                type="file"
+                                class="form-control"
+                                id="receipt"
+                                name="receipt_image"
+                                accept="image/*"
+                                required
+                            >
+
+
+                            <div class="form-text">
+
+                                Upload a screenshot of your completed USDT transaction.
+
+                            </div>
+
+                        </div>
+
+
+
+                        <button 
+                            type="submit"
+                            class="btn btn-dark w-100 py-2"
+                        >
+                            Submit Payment
+                        </button>
+
+
+                    </form>
+                    {% endif %}
+                    <div class="d-flex justify-content-between fw-bold fs-5">
+
+                        <span>
+                            Status
+                        </span>
+
+                    
+                    {% if order.status == "CONFIRMED" %}
+                        <span class="badge text-bg-primary">
+                            {{ order.get_status_display }}
+                        </span>
+
+                    {% elif order.status == "SHIPPED" %}
+                        <span class="badge text-bg-info">
+                            {{ order.get_status_display }}
+                        </span>
+
+                    {% elif order.status == "DELIVERED" %}
+                        <span class="badge text-bg-success">
+                            {{ order.get_status_display }}
+                        </span>
+
+                    {% elif order.status == "CANCELLED" %}
+                        <span class="badge text-bg-danger">
+                            {{ order.get_status_display }}
+                        </span>
+                    {% endif %}
+                    </div>    
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+{% endblock %}

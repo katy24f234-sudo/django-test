@@ -213,3 +213,10 @@ def add_receipt_image(request,id):
         if form.is_valid():
             form.save()
             return redirect('orders')
+
+@login_required(login_url='loginpage')
+def order_details(request,id):
+    order=get_object_or_404(Order,pk=id,user=request.user)
+    orderitems=order.items.all()
+    context={'order':order,'orderitems':orderitems}
+    return render(request,'testapp/order_details.html',context)

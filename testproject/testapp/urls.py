@@ -20,5 +20,6 @@ urlpatterns = [
     path('edit_profile/',views.edit_profile,name='edit_profile'),
     path('order_preview/',views.cart_to_order,name='cart_to_order'),
     path('orders/',views.orders_list,name='orders'),
-    path('add_receipt_image/<str:id>',views.add_receipt_image,name='add_receipt_image')
+    path('add_receipt_image/<str:id>',views.add_receipt_image,name='add_receipt_image'),
+    path('order_details/<str:id>',views.order_details,name='order_details')
 ]
