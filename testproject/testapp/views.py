@@ -25,9 +25,12 @@ def home(request):
     products=Product.objects.all()
     return render(request,'testapp/home.html',{'products':products})
 
-@login_required(login_url='loginpage')
+
 def cart(request):
-    cart=Cart.objects.get(user=request.user)
+    if request.user.is_authenticated:
+        cart=Cart.objects.get(user=request.user)
+    else:
+        cart=Cart.objects.get(session_key=request.session["cart_session_key"])
     cartitems=cart.items.all()
     return render(request,'testapp/cart.html',{'cartitems':cartitems,'cart':cart})
 
@@ -78,6 +81,7 @@ def post_delete(request, id):
     return render(request,'testapp/post_delete.html',data)
 
 def loginpage(request):
+    next=request.GET.get('next')
     if request.user.is_authenticated :
         return redirect('home')
     if request.method == 'POST':
@@ -90,7 +94,7 @@ def loginpage(request):
         user = authenticate(request,username=username,password=password)
         if user is not None :
             login(request , user)
-            return redirect('home')
+            return redirect(next)
         messages.add_message(request,messages.ERROR,"wrong username or password")
     profile_form=CustomProfileform()
     user_form=CustomUsercreationForm()
@@ -137,12 +141,14 @@ def product_details(request,id):
     }
     return render(request,'testapp/product_details.html',data)
 
-@login_required(login_url='loginpage')
 def add_to_cart(request):
     product_id=request.POST.get("product_id")
     page=request.POST.get("page")
     product=get_object_or_404(Product,id=product_id)
-    cart,_=Cart.objects.get_or_create(user=request.user)
+    if request.user.is_authenticated:
+        cart,_=Cart.objects.get_or_create(user=request.user)
+    else:
+        cart,_=Cart.objects.get_or_create(session_key=request.session["cart_session_key"])
     cartitem,created=Cartitem.objects.get_or_create(cart=cart,product=product)
     if not created:
         cartitem.quantity+=1
@@ -150,12 +156,18 @@ def add_to_cart(request):
     return redirect(page)
 
 def delete_cart_item(request,id):
-    cartitem=get_object_or_404(Cartitem,pk=id,cart__user=request.user)
+    if request.user.is_authenticated:
+        cartitem=get_object_or_404(Cartitem,pk=id,cart__user=request.user)
+    else:
+        cartitem=get_object_or_404(Cartitem,pk=id,cart__session_key=request.session["cart_session_key"]) 
     cartitem.delete()
     return redirect('cart')
 
 def update_cart(request):
-    cart,_=Cart.objects.get_or_create(user=request.user)
+    if request.user.is_authenticated:
+        cart,_=Cart.objects.get_or_create(user=request.user)
+    else:
+        cart,_=Cart.objects.get_or_create(session_key=request.session["cart_session_key"])
     if request.method == 'POST':
         for item in cart.items.all():
             quantity=request.POST.get(f'number{item.id}')

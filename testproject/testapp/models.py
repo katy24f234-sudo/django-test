@@ -31,7 +31,8 @@ class Product(models.Model):
         return self.name  
 
 class Cart(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='cart')
+    user=models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True,related_name='cart')
+    session_key=models.CharField(max_length=50,null=True,blank=True,unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True) 
     @property
@@ -41,7 +42,7 @@ class Cart(models.Model):
     def total(self):
         return sum(item.total for item in self.items.all())
     def __str__(self):
-        return f"{self.user.username} cart"
+        return  f"cart {self.id}"
 
 class Cartitem(models.Model):
     product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name='cart_items')
