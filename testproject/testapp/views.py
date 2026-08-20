@@ -220,3 +220,10 @@ def order_details(request,id):
     orderitems=order.items.all()
     context={'order':order,'orderitems':orderitems}
     return render(request,'testapp/order_details.html',context)
+
+@login_required(login_url='loginpage')
+def cancel_order(request,id):
+    order=get_object_or_404(Order,pk=id,user=request.user)
+    order.status='CANCELLED'
+    order.save()
+    return redirect('orders')

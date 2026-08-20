@@ -79,8 +79,11 @@ Cart
                         </span>
 
                     </div>
-
-
+                    {% if order.status == 'PENDING' %}
+                    <div>
+                        <a class="btn btn-danger w-100 py-2 mt-3" href="{% url "cancel_order" order.id %}">cancel</a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
 
