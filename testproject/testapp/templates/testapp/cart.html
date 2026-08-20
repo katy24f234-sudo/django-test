@@ -31,62 +31,63 @@ Cart
             <div class="card mb-3">
 
                 <div class="card-body">
+                    <div class="row g-3 align-items-center">
 
-                    <div class="row align-items-center">
-
-                        <div class="col-md-3">
+                        <!-- Product image -->
+                        <div class="col-4 col-md-3">
                             <img src="{{ item.product.image.url }}"
-                                 class="img-fluid rounded"
-                                 alt="Product">
+                                class="img-fluid rounded"
+                                alt="{{ item.product.name }}">
                         </div>
 
-                        <div class="col-md-4">
-                            <h5 class="card-title">
+                        <!-- Product name -->
+                        <div class="col-8 col-md-3">
+                            <h5 class="card-title mb-1">
                                 {{ item.product.name }}
                             </h5>
+
+                            <div class="text-muted">
+                                ${{ item.product.price }}
+                            </div>
                         </div>
 
-                        <div class="col-md-2">
-
-                            <label class="form-label">
+                        <!-- Quantity -->
+                        <div class="col-6 col-md-3">
+                            <label class="form-label mb-1">
                                 Quantity
                             </label>
 
                             <input type="number"
-                                   class="form-control"
-                                   value="{{ item.quantity }}"
-                                   min="1"
-                                   name="number{{item.id}}"
-                                   >
+                                class="form-control"
+                                value="{{ item.quantity }}"
+                                min="1"
+                                name="number{{ item.id }}">
                         </div>
 
-                        <div class="col ms-4">
-                            <h5>
-                                {{ item.product.price }}
-                            </h5>
-                        </div>
-                        <div class="col-md-1">
-                            <button formaction="{% url "delete_cart_item" item.id %}" type="submit" class="btn btn-danger btn-sm">
+                        <!-- Delete -->
+                        <div class="col-6 col-md-1 text-end">
+                            <button formaction="{% url 'delete_cart_item' item.id %}"
+                                    type="submit"
+                                    class="btn btn-danger btn-sm">
                                 ×
                             </button>
                         </div>
+
                     </div>
+                
 
-                    <div class="d-flex justify-content-between">
-
-                        <span>
+                    <!-- Subtotal -->
+                    <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
+                        <span class="text-muted">
                             Subtotal
                         </span>
 
-                        <span>
+                        <strong>
                             ${{ item.total }}
-                        </span>
-
+                        </strong>
                     </div>
-
                 </div>
-
-            </div>
+                </div>
 
             {% empty %}
 
