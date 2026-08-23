@@ -22,8 +22,8 @@ def cart_context(request):
                 cartitem.save()
 
             session_cart.delete()
-        itemcount = cart.item_count
+        # itemcount = cart.item_count
 
     return {
-        "itemcount": itemcount,
+        "cart": cart,
     }

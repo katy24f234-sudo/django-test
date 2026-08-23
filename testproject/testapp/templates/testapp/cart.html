@@ -7,19 +7,17 @@ Cart
 {% block content %}
 
 <div class="container py-5">
-    <form action="{% url "update_cart" %}"  method='POST'>
-        {% csrf_token %}
     <div class="row align-items-center mb-4">
         <div class="col-lg-8">
             <h1 class="mb-0">Shopping Cart</h1>
         </div>
-        {% if itemcount != 0 %}
+        {% comment %} {% if itemcount != 0 %}
         <div class="col-lg-4 text-end">
             <button type="submit" class="btn btn-dark">
                 Apply changes
             </button>
         </div>
-        {% endif %}
+        {% endif %} {% endcomment %}
     </div>
     <div class="row">
 
@@ -53,24 +51,29 @@ Cart
 
                         <!-- Quantity -->
                         <div class="col-6 col-md-3">
+                            <form onsubmit="return false;" hx-post="{% url 'update_cart' %}" hx-trigger="change delay:500ms from:input" hx-target="#body" hx-swap="innerHTML">
+                                {% csrf_token %}
                             <label class="form-label mb-1">
                                 Quantity
                             </label>
 
-                            <input type="number"
+                            <input autocomplete="off" type="number"
                                 class="form-control"
                                 value="{{ item.quantity }}"
                                 min="1"
-                                name="number{{ item.id }}">
+                                name="quantity">
+                            <input type="hidden" name='id' value="{{item.id}}">
+                            </form>
                         </div>
 
                         <!-- Delete -->
                         <div class="col-6 col-md-1 text-end">
-                            <button formaction="{% url 'delete_cart_item' item.id %}"
-                                    type="submit"
-                                    class="btn btn-danger btn-sm">
+                         <form hx-post="{% url 'delete_cart_item' item.id %}" hx-target="#body" hx-swap="innerHTML">
+                            {% csrf_token%}                            
+                            <button type="submit" class="btn btn-danger btn-sm">
                                 ×
                             </button>
+                        </form>                            
                         </div>
 
                     </div>
@@ -98,7 +101,7 @@ Cart
             {% endfor %}
 
         </div>
-        </form>
+        {% comment %} </form> {% endcomment %}
 
         <!-- RIGHT: Summary -->
         <div class="col-lg-4">

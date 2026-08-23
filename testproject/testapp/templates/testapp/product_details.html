@@ -31,7 +31,7 @@
                 </p>
 
                 <div class="d-flex">
-                    <form action="{% url 'add_to_cart' %}" method="POST">
+                    <form hx-post="{% url 'add_to_cart' %}" hx-swap="innerHTML" hx-target="#item_count">
                         {% csrf_token %}
 
                         <input
@@ -40,11 +40,11 @@
                             value="{{ product.id }}"
                         >
 
-                        <input
+                        {% comment %} <input
                             type="hidden"
                             name="page"
                             value="{% url 'product_details' product.id %}"
-                        >
+                        > {% endcomment %}
 
                         <button
                             class="btn btn-outline-dark flex-shrink-0"

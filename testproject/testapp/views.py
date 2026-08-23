@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponse
 
 def all_tabs(request):
     q=request.GET.get('q')
@@ -146,7 +147,7 @@ def product_details(request,id):
 
 def add_to_cart(request):
     product_id=request.POST.get("product_id")
-    page=request.POST.get("page")
+    # page=request.POST.get("page")
     product=get_object_or_404(Product,id=product_id)
     if request.user.is_authenticated:
         cart,_=Cart.objects.get_or_create(user=request.user)
@@ -156,7 +157,8 @@ def add_to_cart(request):
     if not created:
         cartitem.quantity+=1
         cartitem.save()
-    return redirect(page)
+    # itemcount = cart.item_count
+    return HttpResponse(str(cart.item_count))
 
 def delete_cart_item(request,id):
     if request.user.is_authenticated:
@@ -164,7 +166,7 @@ def delete_cart_item(request,id):
     else:
         cartitem=get_object_or_404(Cartitem,pk=id,cart__session_key=request.session["cart_session_key"]) 
     cartitem.delete()
-    return redirect('cart')
+    return render(request,'testapp/cart.html',{'cart':cartitem.cart,'cartitems':cartitem.cart.items.all()})
 
 def update_cart(request):
     if request.user.is_authenticated:
@@ -172,12 +174,14 @@ def update_cart(request):
     else:
         cart,_=Cart.objects.get_or_create(session_key=request.session["cart_session_key"])
     if request.method == 'POST':
-        for item in cart.items.all():
-            quantity=request.POST.get(f'number{item.id}')
-            if int(quantity) >= 1:
-                item.quantity=int(quantity)    
-                item.save()
-        return redirect('cart')
+        quantity=request.POST.get('quantity')
+        id=request.POST.get('id')
+        item=get_object_or_404(Cartitem,cart=cart,id=id)
+        if int(quantity) >= 1:
+            item.quantity=int(quantity)    
+            item.save()
+        return render(request,'testapp/cart.html',{'cart':cart,'cartitems':cart.items.all()})
+        # return redirect('cart')
     
 @login_required(login_url='loginpage')
 def checkout(request):
