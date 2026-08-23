@@ -94,7 +94,10 @@ def loginpage(request):
         user = authenticate(request,username=username,password=password)
         if user is not None :
             login(request , user)
-            return redirect(next)
+            if next is not None:
+                return redirect(next)
+            else:
+                return redirect('home')
         messages.add_message(request,messages.ERROR,"wrong username or password")
     profile_form=CustomProfileform()
     user_form=CustomUsercreationForm()
