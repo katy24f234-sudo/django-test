@@ -1,12 +1,6 @@
-{% extends "shopbase.html" %}
+{{cart.item_count}}
 
-{% block title %}
-Cart
-{% endblock %}
-
-{% block content %}
-
-<div id="shoppingcart" class="container py-5">
+<div id="shoppingcart" hx-swap-oob="true" class="container py-5">
     <div class="row align-items-center mb-4">
         <div class="col-lg-8">
             <h1 class="mb-0">Shopping Cart</h1>
@@ -160,5 +154,3 @@ Cart
     </div>
 
 </div>
-
-{% endblock %}

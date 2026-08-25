@@ -166,7 +166,7 @@ def delete_cart_item(request,id):
     else:
         cartitem=get_object_or_404(Cartitem,pk=id,cart__session_key=request.session["cart_session_key"]) 
     cartitem.delete()
-    return render(request,'testapp/cart.html',{'cart':cartitem.cart,'cartitems':cartitem.cart.items.all()})
+    return render(request,'testapp/cart_update.html',{'cart':cartitem.cart,'cartitems':cartitem.cart.items.all()})
 
 def update_cart(request):
     if request.user.is_authenticated:
@@ -180,7 +180,7 @@ def update_cart(request):
         if int(quantity) >= 1:
             item.quantity=int(quantity)    
             item.save()
-        return render(request,'testapp/cart.html',{'cart':cart,'cartitems':cart.items.all()})
+        return render(request,'testapp/cart_update.html',{'cart':cart,'cartitems':cart.items.all()})
         # return redirect('cart')
     
 @login_required(login_url='loginpage')
