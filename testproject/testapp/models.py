@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField # pyright: ignore[reportMissingImports]
+from django.utils.translation import gettext_lazy as _
 
 class Post(models.Model):
     title=models.CharField(max_length=200)
@@ -61,11 +62,11 @@ class Order(models.Model):
         related_name='orders'
     )
     class Status(models.TextChoices):
-        PENDING = 'PENDING', 'Pending'
-        CONFIRMED = 'CONFIRMED', 'Confirmed'
-        SHIPPED = 'SHIPPED', 'Shipped'
-        DELIVERED = 'DELIVERED', 'Delivered'
-        CANCELLED = 'CANCELLED', 'Cancelled'
+        PENDING = 'PENDING', _('Pending')
+        CONFIRMED = 'CONFIRMED', _('Confirmed')
+        SHIPPED = 'SHIPPED', _('Shipped')
+        DELIVERED = 'DELIVERED', _('Delivered')
+        CANCELLED = 'CANCELLED', _('Cancelled')
     status = models.CharField(
         max_length=20,
         choices=Status.choices,

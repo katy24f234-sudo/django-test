@@ -1,7 +1,8 @@
 {% extends "shopbase.html" %}
+{% load i18n %}
 
 {% block title %}
-checkout
+{% translate "checkout" %}
 {% endblock %}
 
 {% block content %}
@@ -12,7 +13,7 @@ checkout
                 <div class="card-body">
 
                     <h4 class="card-title">
-                        Order Summary
+                        {% translate "Order Summary" %}
                     </h4>
 
                     <hr>
@@ -20,11 +21,11 @@ checkout
                     <div class="d-flex justify-content-between">
 
                         <span>
-                            Shipping
+                            {% translate "Shipping" %}
                         </span>
 
                         <span>
-                            Free
+                            {% translate "Free" %}
                         </span>
 
                     </div>
@@ -32,7 +33,7 @@ checkout
                     <div class="d-flex justify-content-between">
 
                         <span>
-                            Status
+                            {% translate "Status" %}
                         </span>
 
                         <span>
@@ -59,7 +60,7 @@ checkout
                     <div class="d-flex justify-content-between">
 
                         <h5>
-                            Total
+                            {% translate "Total" %}
                         </h5>
 
                         <h5>
@@ -75,7 +76,7 @@ checkout
     <div class="card-body">
 
         <h4 class="card-title mb-3">
-            Payment Details
+            {% translate "Payment Details" %}
         </h4>
 
         <hr>
@@ -84,7 +85,7 @@ checkout
         <!-- Network -->
         <div class="mb-4">
             <label class="form-label fw-semibold">
-                Network
+                {% translate "Network" %}
             </label>
 
             <div>
@@ -96,21 +97,21 @@ checkout
 
         <!-- Wallet Address -->
         <div class="mb-4">
-                <span>USDT Wallet Address</span>
+                <span>{% translate "USDT Wallet Address" %}</span>
                 <hr>
                 <span>0x2DbF8Cb6A4dAd6a6BB8C51f81C2A96E08de43Ce0</span>
                 <hr>
             <div class="form-text">
-                Send exactly
+                {% translate "Send exactly" %}
                 <strong>${{ order.total }}</strong>
-                USDT to this address.
+                USDT {% translate "to this address." %}
             </div>
         </div>
 
         <!-- Receipt -->
         <div class="mb-4">
             <label for="receipt" class="form-label fw-semibold">
-                Payment Receipt
+                {% translate "Payment Receipt" %}
             </label>
 
             <input
@@ -123,12 +124,12 @@ checkout
             >
 
             <div class="form-text">
-                Upload a screenshot of your completed USDT transaction.
+                {% translate "Upload a screenshot of your completed USDT transaction." %}
             </div>
         </div>
 
         <button type="submit" class="btn btn-dark w-100">
-            Submit Payment
+            {% translate "Submit Payment" %}
         </button>
     </div>
     </form>

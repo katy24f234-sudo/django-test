@@ -1,5 +1,6 @@
 {% extends "shopbase.html" %}
-{% block title %}edit info{% endblock title %}
+{% load i18n %}
+{% block title %}{% translate "edit info" %}{% endblock title %}
 {% block content %}
 <div class="container">
     <div class="row justify-content-center align-items-center min-vh-100">
@@ -7,37 +8,37 @@
             <div class="card shadow-sm">
                 <div class="card-body p-6">
 
-                    <h2 class="text-center mb-4">edit info</h2>
+                    <h2 class="text-center mb-4">{% translate "edit info" %}</h2>
 
                     <form method="POST">
                         {% csrf_token %}
                             <div>
-                                <label for="first_name">first name:</label>
+                                <label for="first_name">{% translate "first name:" %}</label>
                             </div>
                             <div>
                                 <input type="text" value="{{request.user.first_name}}" name="first_name" id="first_name">
                             </div>
                             <div>
-                                <label for="last_name">last name:</label>
+                                <label for="last_name">{% translate "last name:" %}</label>
                             </div>
                             <div>
                                 <input type="text" value="{{request.user.last_name}}" name="last_name" id="last_name">
                             </div>                              
                             <div>
-                                <label for="address">address:</label>
+                                <label for="address">{% translate "address:" %}</label>
                             </div>
                            <div>
                                 <input type="text" value="{{request.user.profile.address}}" name="address" id="address">
                             </div>  
                             <div>
-                                <label for="phone_number">phone number:</label>
+                                <label for="phone_number">{% translate "phone number:" %}</label>
                             </div>
                             <div>
                                 <input type="text" {% if request.user.profile.phone_number %} value="{{request.user.profile.phone_number}}" {% endif %} name="phone_number" id="phone_number">
                             </div>  
                             <br>
                         <button type="submit" class="btn btn-dark w-100">
-                            confirm
+                            {% translate "confirm" %}
                         </button>
                     </form>
                 </div>

@@ -30,3 +30,13 @@ textarea{
     margin: 5px;
     border-radius: 5px;    
 }
+
+@font-face {
+    font-family: "Vazirmatn";
+    src: url(../font/Vazirmatn-RD-Regular.woff2) format("woff2");
+}
+
+html[lang="fa"] body{
+    font-family: "Vazirmatn" , sans-serif;
+    font-size: 26px;
+}

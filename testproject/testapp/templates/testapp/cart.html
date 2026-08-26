@@ -1,7 +1,8 @@
 {% extends "shopbase.html" %}
+{% load i18n %}
 
 {% block title %}
-Cart
+{% translate "Cart" %}
 {% endblock %}
 
 {% block content %}
@@ -9,7 +10,7 @@ Cart
 <div id="shoppingcart" class="container py-5">
     <div class="row align-items-center mb-4">
         <div class="col-lg-8">
-            <h1 class="mb-0">Shopping Cart</h1>
+            <h1 class="mb-0">{% translate "Shopping Cart" %}</h1>
         </div>
         {% comment %} {% if itemcount != 0 %}
         <div class="col-lg-4 text-end">
@@ -54,7 +55,7 @@ Cart
                             <form onsubmit="return false;" hx-post="{% url 'update_cart' %}" hx-trigger="change delay:500ms from:input" hx-target="#item_count" hx-swap="innerHTML">
                                 {% csrf_token %}
                             <label class="form-label mb-1">
-                                Quantity
+                                {% translate "Quantity" %}
                             </label>
 
                             <input autocomplete="off" type="number"
@@ -82,7 +83,7 @@ Cart
                     <!-- Subtotal -->
                     <div id="subtotal" class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
                         <span class="text-muted">
-                            Subtotal
+                            {% translate "Subtotal" %}
                         </span>
 
                         <strong>
@@ -95,7 +96,7 @@ Cart
             {% empty %}
 
             <div class="alert alert-info">
-                Your cart is empty.
+                {% translate "Your cart is empty." %}
             </div>
 
             {% endfor %}
@@ -111,7 +112,7 @@ Cart
                 <div class="card-body">
 
                     <h4 class="card-title">
-                        Cart Summary
+                        {% translate "Cart Summary" %}
                     </h4>
 
                     <hr>
@@ -119,11 +120,11 @@ Cart
                     <div class="d-flex justify-content-between">
 
                         <span>
-                            Shipping
+                            {% translate "Shipping" %}
                         </span>
 
                         <span>
-                            Free
+                            {% translate "Free" %}
                         </span>
 
                     </div>
@@ -133,7 +134,7 @@ Cart
                     <div class="d-flex justify-content-between">
 
                         <h5>
-                            Total
+                            {% translate "Total" %}
                         </h5>
 
                         <h5>
@@ -143,12 +144,12 @@ Cart
                     </div>
                     {% if cart.item_count != 0 %}
                     <a href="{% url "checkout" %}" class="btn btn-dark w-100 mt-3">
-                        Checkout
+                        {% translate "Checkout" %}
                     </a>
                     {% endif %}
                     <a href="{% url 'home' %}"
                        class="btn btn-outline-secondary w-100 mt-2">
-                        Continue Shopping
+                        {% translate "Continue Shopping" %}
                     </a>
 
                 </div>

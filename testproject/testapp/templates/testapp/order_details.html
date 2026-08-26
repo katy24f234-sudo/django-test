@@ -1,7 +1,8 @@
 {% extends "shopbase.html" %}
+{% load i18n %}
 
 {% block title %}
-Cart
+{% translate "Cart" %}
 {% endblock %}
 
 {% block content %}
@@ -11,7 +12,7 @@ Cart
     <!-- Header -->
     <div class="row mb-4">
         <div class="col">
-            <h1 class="fw-bold">Order #{{ order.id }}</h1>
+            <h1 class="fw-bold">{% translate "Order" %} #{{ order.id }}</h1>
         </div>
     </div>
 
@@ -25,7 +26,7 @@ Cart
                 <div class="card-body">
 
                     <h5 class="fw-semibold mb-4">
-                        Order Summary
+                        {% translate "Order Summary" %}
                     </h5>
 
 
@@ -39,7 +40,7 @@ Cart
                             </h6>
 
                             <small class="text-muted">
-                                Quantity: {{ item.quantity }}
+                                {% translate "Quantity:" %} {{ item.quantity }}
                             </small>
                         </div>
 
@@ -71,7 +72,7 @@ Cart
                     <div class="d-flex justify-content-between fw-bold fs-5">
 
                         <span>
-                            Total
+                            {% translate "Total" %}
                         </span>
 
                         <span>
@@ -81,7 +82,7 @@ Cart
                     </div>
                     {% if order.status == 'PENDING' %}
                     <div>
-                        <a class="btn btn-danger w-100 py-2 mt-3" href="{% url "cancel_order" order.id %}">cancel</a>
+                        <a class="btn btn-danger w-100 py-2 mt-3" href="{% url "cancel_order" order.id %}">{% translate "cancel" %}</a>
                     </div>
                     {% endif %}
                 </div>
@@ -101,7 +102,7 @@ Cart
 
                     {% if order.status == "PENDING" %}
                     <h5 class="fw-semibold mb-4">
-                        Complete Payment
+                        {% translate "Complete Payment" %}
                     </h5>
 
 
@@ -110,7 +111,7 @@ Cart
                     <img 
                         src="{{ order.receipt_image.url }}" 
                         class="img-fluid rounded mb-4"
-                        alt="Payment Receipt"
+                        alt="{% translate "Payment Receipt" %}"
                     >
                     {% endif %}
 
@@ -120,7 +121,7 @@ Cart
                     <div class="mb-4">
 
                         <label class="fw-semibold">
-                            USDT Wallet Address
+                            {% translate "USDT Wallet Address" %}
                         </label>
 
                         <hr>
@@ -131,9 +132,9 @@ Cart
 
                         <div class="form-text mt-2">
 
-                            Send exactly 
+                            {% translate "Send exactly" %} 
                             <strong>${{ order.total }}</strong>
-                            USDT to this address.
+                            USDT {% translate "to this address." %}
 
                         </div>
 
@@ -153,7 +154,7 @@ Cart
                                 for="receipt"
                                 class="form-label fw-semibold"
                             >
-                                Payment Receipt
+                                {% translate "Payment Receipt" %}
                             </label>
 
 
@@ -169,7 +170,7 @@ Cart
 
                             <div class="form-text">
 
-                                Upload a screenshot of your completed USDT transaction.
+                                {% translate "Upload a screenshot of your completed USDT transaction." %}
 
                             </div>
 
@@ -181,7 +182,7 @@ Cart
                             type="submit"
                             class="btn btn-dark w-100 py-2"
                         >
-                            Submit Payment
+                            {% translate "Submit Payment" %}
                         </button>
 
 
@@ -190,7 +191,7 @@ Cart
                     <div class="d-flex justify-content-between fw-bold fs-5">
 
                         <span>
-                            Status
+                            {% translate "Status" %}
                         </span>
 
                     

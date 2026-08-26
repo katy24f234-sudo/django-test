@@ -1,7 +1,9 @@
-{% extends "shopbase.html" %}
 
+
+{% extends "shopbase.html" %}
+{% load i18n %}
 {% block title %}
-checkout
+{% translate "checkout" %}
 {% endblock %}
 
 {% block content %}
@@ -12,7 +14,7 @@ checkout
                 <div class="card-body">
 
                     <h4 class="card-title">
-                        Cart Summary
+                        {% translate "Cart Summary" %}
                     </h4>
 
                     <hr>
@@ -20,11 +22,11 @@ checkout
                     <div class="d-flex justify-content-between">
 
                         <span>
-                            Shipping
+                            {% translate "Shipping" %}
                         </span>
 
                         <span>
-                            Free
+                            {% translate "Free" %}
                         </span>
 
                     </div>
@@ -47,7 +49,7 @@ checkout
                     <div class="d-flex justify-content-between">
 
                         <h5>
-                            Total
+                            {% translate "Total" %}
                         </h5>
 
                         <h5>
@@ -63,7 +65,7 @@ checkout
                 <div class="card-body">
 
                     <h4 class="card-title">
-                        profile
+                        {% translate "profile" %}
                     </h4>
 
                     <hr>
@@ -71,7 +73,7 @@ checkout
                     <div class="d-flex justify-content-between">
 
                         <span>
-                            name
+                            {% translate "name" %}
                         </span>
 
                         <span>
@@ -84,7 +86,7 @@ checkout
                     <div class="d-flex justify-content-between">
 
                         <span>
-                            email
+                            {% translate "email" %}
                         </span>
 
                         <span>
@@ -96,7 +98,7 @@ checkout
                     <div class="d-flex justify-content-between">
 
                         <span>
-                            address
+                            {% translate "address" %}
                         </span>
 
                         <span>
@@ -108,7 +110,7 @@ checkout
                     <div class="d-flex justify-content-between">
 
                         <span>
-                            phone number
+                            {% translate "phone number" %}
                         </span>
 
                         <span>
@@ -118,11 +120,11 @@ checkout
                     </div>
                     <hr>
                     <a href="{% url "cart_to_order" %}" class="btn btn-dark w-100 mt-3">
-                        confirm
+                        {% translate "confirm" %}
                     </a>
                     <a href="{% url "edit_profile" %}"
                        class="btn btn-outline-secondary w-100 mt-2">
-                        edit profile
+                        {% translate "edit profile" %}
                     </a>                                       
                 </div>
             </div>

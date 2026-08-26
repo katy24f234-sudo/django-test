@@ -1,4 +1,6 @@
 {% extends "shopbase.html" %}
+{% load i18n %}
+{% block title %}{% if page == 'login' %}{% translate "login" %} {% else %}{% translate "register" %}{% endif %}{% endblock title %}
 {% block content %}
 <div class="container">
     <div class="row justify-content-center align-items-center min-vh-100">
@@ -7,14 +9,14 @@
             <div class="card shadow-sm">
                 <div class="card-body p-6">
 
-                    <h2 class="text-center mb-4">Login</h2>
+                    <h2 class="text-center mb-4">{% translate "Login" %}</h2>
 
                     <form method="POST">
                         {% csrf_token %}
 
                         <div class="mb-3">
                             <label for="username" class="form-label">
-                                Username (email)
+                                {% translate "Username (email)" %}
                             </label>
                             <input
                                 type="text"
@@ -27,7 +29,7 @@
 
                         <div class="mb-3">
                             <label for="password" class="form-label">
-                                Password
+                                {% translate "Password" %}
                             </label>
                             <input
                                 type="password"
@@ -39,7 +41,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-dark w-100">
-                            Login
+                            {% translate "Login" %}
                         </button>
                     {% if messages %}
                         {% for message in messages %}
@@ -51,16 +53,16 @@
                     </form>
 
                     <p class="text-center mt-3 mb-0">
-                        Don't have an account?
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">register</button>
+                        {% translate "Don't have an account?" %}
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">{% translate "register" %}</button>
                     </p> 
 
                     <!-- Dialog -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">register</h5>
+                        <div dir="ltr" class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{% translate "register" %}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
@@ -68,31 +70,31 @@
                             <form action="{% url 'registerpage' %}" method="POST">
                                 {% csrf_token %}
                                 <div>
-                                    <label for="{{ user_form.first_name.id_for_label }}">first name:</label>
+                                    <label for="{{ user_form.first_name.id_for_label }}">{% translate "first name:" %}</label>
                                     {{ user_form.first_name }} 
                                 </div>
                                 <div>
-                                    <label for="{{ user_form.last_name.id_for_label }}">last name:</label>
+                                    <label for="{{ user_form.last_name.id_for_label }}">{% translate "last name:" %}</label>
                                     {{ user_form.last_name }} 
                                 </div>
                                 <div>
-                                    <label for="{{ user_form.email.id_for_label }}">email:</label>
+                                    <label for="{{ user_form.email.id_for_label }}">{% translate "email:" %}</label>
                                     {{ user_form.email }} 
                                 </div>
                                 <div>
-                                    <label for="{{ profile_form.address.id_for_label }}">address:</label>
+                                    <label for="{{ profile_form.address.id_for_label }}">{% translate "address:" %}</label>
                                     {{ profile_form.address }} 
                                 </div>
                                 <div>
-                                    <label for="{{ profile_form.phone_number.id_for_label }}">phone number:</label>
+                                    <label for="{{ profile_form.phone_number.id_for_label }}">{% translate "phone number:" %}</label>
                                     {{ profile_form.phone_number }} 
                                 </div>
                                 <div>
-                                    <label for="{{ user_form.password1.id_for_label }}">password:</label>
+                                    <label for="{{ user_form.password1.id_for_label }}">{% translate "password:" %}</label>
                                     {{ user_form.password1 }} 
                                 </div>
                                 <div>
-                                    <label for="{{ user_form.password2.id_for_label }}">repeat password:</label>
+                                    <label for="{{ user_form.password2.id_for_label }}">{% translate "repeat password:" %}</label>
                                     {{ user_form.password2 }} 
                                 </div>
                             
@@ -100,10 +102,10 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Cancel
+                            {% translate "Cancel" %}
                             </button>
                             <button type="submit" class="btn btn-primary">
-                            Confirm
+                            {% translate "Confirm" %}
                             </button>
                             </form>
                         </div>
@@ -116,45 +118,45 @@
 
         </div>
         {% else %}
-            <div class="card shadow-sm">
+            <div class="card shadow-sm mt-5 mb-5">
                 <div class="card-body p-6">
 
-                    <h2 class="text-center mb-4">register</h2>
+                    <h2 class="text-center mb-4">{% translate "register" %}</h2>
 
                     <form method="POST">
                         {% csrf_token %}
 
                             <div>
-                                <label for="{{ user_form.first_name.id_for_label }}">first name:</label>
+                                <label for="{{ user_form.first_name.id_for_label }}">{% translate "first name:" %}</label>
                                 {{ user_form.first_name }} 
                             </div>
                             <div>
-                                <label for="{{ user_form.last_name.id_for_label }}">last name:</label>
+                                <label for="{{ user_form.last_name.id_for_label }}">{% translate "last name:" %}</label>
                                 {{ user_form.last_name }} 
                             </div>
                             <div>
-                                <label for="{{ user_form.email.id_for_label }}">email:</label>
+                                <label for="{{ user_form.email.id_for_label }}">{% translate "email:" %}</label>
                                 {{ user_form.email }} 
                             </div>
                             <div>
-                                <label for="{{ profile_form.address.id_for_label }}">address:</label>
+                                <label for="{{ profile_form.address.id_for_label }}">{% translate "address:" %}</label>
                                 {{ profile_form.address }} 
                             </div>
                             <div>
-                                <label for="{{ profile_form.phone_number.id_for_label }}">phone number:</label>
+                                <label for="{{ profile_form.phone_number.id_for_label }}">{% translate "phone number:" %}</label>
                                 {{ profile_form.phone_number }} 
                             </div>
                             <div>
-                                <label for="{{ user_form.password1.id_for_label }}">password:</label>
+                                <label for="{{ user_form.password1.id_for_label }}">{% translate "password:" %}</label>
                                 {{ user_form.password1 }} 
                             </div>
                             <div>
-                                <label for="{{ user_form.password2.id_for_label }}">repeat password:</label>
+                                <label for="{{ user_form.password2.id_for_label }}">{% translate "repeat password:" %}</label>
                                 {{ user_form.password2 }} 
                             </div>
                             <br>
                         <button type="submit" class="btn btn-dark w-100">
-                            register
+                            {% translate "register" %}
                         </button>
                     {% if user_form.non_field_errors %}
                         {% for error in user_form.non_field_errors %}
