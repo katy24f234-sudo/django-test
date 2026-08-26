@@ -17,13 +17,3 @@ admin.site.register(Orderitem)
 @admin.register(Product)
 class ProductAdmin(TranslationAdmin):
     pass
-
-
-# @admin.register(Order)
-# class OrderAdmin(TranslationAdmin):
-#     pass
-
-
-# @admin.register(Orderitem)
-# class OrderitemAdmin(TranslationAdmin):
-#     pass
