@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
+from django.utils.translation import gettext_lazy as _
 
 def all_tabs(request):
     q=request.GET.get('q')
@@ -99,7 +100,7 @@ def loginpage(request):
                 return redirect(next)
             else:
                 return redirect('home')
-        messages.add_message(request,messages.ERROR,"wrong username or password")
+        messages.add_message(request,messages.ERROR,_("wrong username or password"))
     profile_form=CustomProfileform()
     user_form=CustomUsercreationForm()
     page='login'

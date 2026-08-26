@@ -1,5 +1,6 @@
 {% extends 'shopbase.html' %}
-{% block title %}product {{product.id}}{% endblock title %} 
+{% load i18n %}
+{% block title %}{% translate "product" %} {{product.id}}{% endblock title %} 
 {% block content %}
 <section class="py-4 py-md-5 mx-auto card mt-3 mt-md-5 mb-3 mb-md-5"
          style="max-width: 950px;">
@@ -51,7 +52,7 @@
                             type="submit"
                         >
                             <i class="bi-cart-fill me-1"></i>
-                            Add to cart
+                            {% translate "Add to cart" %}
                         </button>
                     </form>
                 </div>

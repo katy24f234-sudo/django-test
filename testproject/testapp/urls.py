@@ -22,5 +22,5 @@ urlpatterns = [
     path('orders/',views.orders_list,name='orders'),
     path('add_receipt_image/<str:id>',views.add_receipt_image,name='add_receipt_image'),
     path('order_details/<str:id>',views.order_details,name='order_details'),
-    path('cancel_order/<str:id>',views.cancel_order,name='cancel_order')
+    path('cancel_order/<str:id>',views.cancel_order,name='cancel_order'),
 ]
