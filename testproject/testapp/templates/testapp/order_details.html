@@ -193,8 +193,12 @@ Cart
                             Status
                         </span>
 
+                    {% if order.status == "PENDING" %}
+                        <span class="badge text-bg-warning">
+                            {{ order.get_status_display }}
+                        </span>
                     
-                    {% if order.status == "CONFIRMED" %}
+                    {% elif order.status == "CONFIRMED" %}
                         <span class="badge text-bg-primary">
                             {{ order.get_status_display }}
                         </span>
