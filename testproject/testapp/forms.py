@@ -1,6 +1,7 @@
 from django import forms 
 from .models import Post , CustomProfile,User,Order
 from django.contrib.auth.forms import UserCreationForm
+from django.utils.translation import gettext_lazy as _
 
 class PostCreateForm(forms.ModelForm):
     class Meta:
@@ -22,7 +23,7 @@ class CustomUsercreationForm(UserCreationForm):
         email=self.cleaned_data['email'].lower()
         if User.objects.filter(email__iexact=email).exists():
             raise forms.ValidationError(
-                'this email is already registered'
+                _('this email is already registered')
             )
         return email
 

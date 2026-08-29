@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-26 23:38+0330\n"
+"POT-Creation-Date: 2026-08-29 16:09+0330\n"
 "PO-Revision-Date: 2026-08-26 16:30+0330\n"
 "Last-Translator: \n"
 "Language-Team: Persian\n"
@@ -58,6 +58,10 @@ msgstr "خروج"
 msgid "login"
 msgstr "ورود"
 
+#: .\testapp\forms.py:26
+msgid "this email is already registered"
+msgstr "این ایمیل قبلا ثبت شده است"
+
 #: .\testapp\models.py:65
 msgid "Pending"
 msgstr "در انتظار تایید"
@@ -91,7 +95,7 @@ msgstr "تعداد"
 #: .\testapp\templates\testapp\cart.html:87
 #: .\testapp\templates\testapp\cart_update.html:74
 msgid "Subtotal"
-msgstr "جمع جزء"
+msgstr "جمع"
 
 #: .\testapp\templates\testapp\cart.html:100
 #: .\testapp\templates\testapp\cart_update.html:87
@@ -299,12 +303,12 @@ msgstr "آدرس کیف پول USDT"
 #: .\testapp\templates\testapp\order_details.html:135
 #: .\testapp\templates\testapp\order_preview.html:105
 msgid "Send exactly"
-msgstr "دقیقاً ارسال کنید"
+msgstr "دقیقاً"
 
 #: .\testapp\templates\testapp\order_details.html:137
 #: .\testapp\templates\testapp\order_preview.html:107
 msgid "to this address."
-msgstr "به این آدرس."
+msgstr "به این آدرس ارسال کنید."
 
 #: .\testapp\templates\testapp\order_details.html:173
 #: .\testapp\templates\testapp\order_preview.html:127

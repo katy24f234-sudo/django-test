@@ -37,7 +37,7 @@
                         </span>
 
                         <span>
-                            {{order.status}}
+                            {{ order.get_status_display }}
                         </span>
 
                     </div>                    
@@ -103,7 +103,7 @@
                 <hr>
             <div class="form-text">
                 {% translate "Send exactly" %}
-                <strong>${{ order.total }}</strong>
+                <strong dir="ltr">${{ order.total }}</strong>
                 USDT {% translate "to this address." %}
             </div>
         </div>
